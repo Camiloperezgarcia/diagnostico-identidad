@@ -310,7 +310,7 @@ async function generateReport(){
   try{
     // Call secure API endpoint — keys are stored in Vercel env vars
     const[reportRes,_]=await Promise.all([
-      fetch('/api/report',{signal:AbortSignal.timeout(25000),method:'POST',headers:{'Content-Type':'application/json'},
+      fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,primary,secondary})}),
       fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,email,patron:patternNames[primary]})})
@@ -318,7 +318,17 @@ async function generateReport(){
     const{report}=await reportRes.json();
     document.getElementById('reportBadge').textContent='Patrón predominante';
     document.getElementById('reportName').textContent=patternNames[primary];
-    document.getElementById('reportBody').textContent=report||'No pudimos generar el reporte. Contáctanos directamente.';
+    const raw=report||'No pudimos generar el reporte. Contáctanos directamente.';
+    const html=raw
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/^# (.+)$/gm,'<h2 style="font-family:\'Sora\',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin:1.2rem 0 0.4rem">$1</h2>')
+      .replace(/^## (.+)$/gm,'<h3 style="font-family:\'Sora\',sans-serif;font-size:1rem;font-weight:700;color:#C9A84C;margin:1rem 0 0.3rem">$1</h3>')
+      .replace(/^### (.+)$/gm,'<h4 style="font-family:\'Sora\',sans-serif;font-size:.95rem;font-weight:600;color:#fff;margin:.8rem 0 .2rem">$1</h4>')
+      .replace(/\*\*(.+?)\*\*/g,'<strong style="color:#fff;font-weight:600">$1</strong>')
+      .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid rgba(201,168,76,0.2);margin:1rem 0">')
+      .replace(/\n\n/g,'</p><p style="margin:0.6rem 0">')
+      .replace(/\n/g,'<br>');
+    document.getElementById('reportBody').innerHTML='<p style="margin:0">'+html+'</p>';
     showScreen('report');
   }catch(err){
     console.error(err);showScreen('email');
