@@ -318,9 +318,7 @@ async function generateReport(){
     const{report}=await reportRes.json();
     document.getElementById('reportBadge').textContent='Patrón predominante';
     document.getElementById('reportName').textContent=patternNames[primary];
-    document.getElementById('reportBody').textContent=report||'No pudimos generar el reporte. Contáctanos directamente.'(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$2</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^---$/gm,'<hr>').replace(/
-
-/g,'</p><p>').replace(/^(?!<[h|h|s])/gm,'')||'No pudimos generar el reporte. Contáctanos directamente.';
+    document.getElementById('reportBody').textContent=report||'No pudimos generar el reporte. Contáctanos directamente.';
     showScreen('report');
   }catch(err){
     console.error(err);showScreen('email');
