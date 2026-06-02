@@ -310,7 +310,7 @@ async function generateReport(){
   try{
     // Call secure API endpoint — keys are stored in Vercel env vars
     const[reportRes,_]=await Promise.all([
-      fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},
+      fetch('/api/report',{signal:AbortSignal.timeout(25000),method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,primary,secondary})}),
       fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,email,patron:patternNames[primary]})})
