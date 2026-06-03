@@ -310,13 +310,12 @@ async function generateReport(){
   showScreen('loading');
   try{
     // Call secure API endpoint — keys are stored in Vercel env vars
-    const[reportRes,_]=await Promise.all([
-      fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,primary,secondary})}),
-      fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,email,patron:patternNames[primary]})})
-    ]);
+    const reportRes=await fetch('/api/report',{signal:AbortSignal.timeout(25000),method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,primary,secondary})});
     const{report}=await reportRes.json();
+    // Send subscribe with full report text for transactional email
+    fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,email,patron:patternNames[primary],report:report||''})});
     document.getElementById('reportBadge').textContent='Patrón predominante';
     document.getElementById('reportName').textContent=patternNames[primary];
     const raw=report||'No pudimos generar el reporte. Contáctanos directamente.';
