@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diagnóstico de Identidad — Camilo Pérez García</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:#1A1A2E;--navy-card:#1E1E38;--gold:#C9A84C;
+    --navy:#111111;--navy-card:#1A1A2E;--gold:#C9A84C;
     --gold-dim:rgba(201,168,76,0.15);--gold-border:rgba(201,168,76,0.3);
     --cream:#F5F0E8;--cream-dim:rgba(245,240,232,0.6);--white:#FFFFFF;
     --radius:14px;--radius-sm:8px;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+  body{background:#111111;color:var(--cream);font-family:'Archivo',sans-serif;min-height:100vh;overflow-x:hidden}
   .bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);opacity:0.06}
   .bg-orb-1{width:600px;height:600px;background:var(--gold);top:-200px;right:-200px}
   .bg-orb-2{width:400px;height:400px;background:#6B4FCF;bottom:-100px;left:-100px}
@@ -346,40 +346,58 @@ function downloadPDF() {
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Identidad — ${patron}</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>Reporte de Identidad — \${patron}</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'DM Sans', sans-serif; background: #1A1A2E; color: #F5F0E8; margin: 0; padding: 2rem; }
-  .header { border-bottom: 2px solid #C9A84C; padding-bottom: 1.5rem; margin-bottom: 2rem; }
-  .badge { display: inline-block; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4); color: #C9A84C; font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 10px; }
-  .patron-name { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin: 0; }
-  .report-content { font-size: 14px; line-height: 1.8; }
-  .report-content h2 { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin: 1.5rem 0 0.5rem; }
-  .report-content h3 { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: #C9A84C; margin: 1.2rem 0 0.3rem; }
-  .report-content strong { color: #fff; font-weight: 600; }
-  .report-content hr { border: none; border-top: 1px solid rgba(201,168,76,0.2); margin: 1rem 0; }
-  .cta-box { margin-top: 2rem; padding: 20px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.35); border-radius: 10px; text-align: center; }
-  .cta-box p { font-size: 13px; color: rgba(245,240,232,0.7); margin-bottom: 6px; }
-  .cta-box strong { font-family: 'Sora', sans-serif; font-size: 16px; color: #C9A84C; display: block; }
-  .footer-pdf { margin-top: 2rem; font-size: 11px; color: rgba(245,240,232,0.3); text-align: center; }
-  @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F5F0E8 !important; color: #1A1A2E !important; font-family: 'Archivo', sans-serif; }
+  .page { background: #F5F0E8 !important; min-height: 100vh; padding: 40px 48px; }
+  .top-bar { height: 4px; background: linear-gradient(90deg, #C9A84C, transparent); margin-bottom: 32px; border-radius: 2px; }
+  .header { display: flex; align-items: flex-start; gap: 16px; padding-bottom: 24px; border-bottom: 2px solid #C9A84C; margin-bottom: 28px; }
+  .logo-hex { width: 48px; height: 48px; background: rgba(26,26,46,0.08); border: 1px solid rgba(26,26,46,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .header-text { flex: 1; }
+  .badge { display: inline-block; background: rgba(26,26,46,0.08) !important; border: 1px solid rgba(201,168,76,0.6); color: #C9A84C !important; font-family: 'Sora', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
+  .patron-name { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: #1A1A2E !important; margin: 0; line-height: 1.2; }
+  .handle { font-family: 'Sora', sans-serif; font-size: 11px; color: rgba(201,168,76,0.7) !important; margin-top: 4px; }
+  .report-content { font-size: 14px; line-height: 1.85; color: #2D2D4A !important; }
+  .report-content p { margin: 0.6rem 0; }
+  .report-content h2 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: #1A1A2E !important; margin: 1.5rem 0 0.4rem; }
+  .report-content h3 { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; color: #C9A84C !important; margin: 1.2rem 0 0.3rem; }
+  .report-content strong { color: #1A1A2E !important; font-weight: 700; }
+  .report-content hr { border: none; border-top: 1px solid rgba(201,168,76,0.3); margin: 1.2rem 0; }
+  .cta-box { margin-top: 2.5rem; padding: 20px 24px; background: #1A1A2E !important; border: 1px solid rgba(201,168,76,0.3); border-radius: 10px; text-align: center; }
+  .cta-box p { font-size: 12px; color: rgba(245,240,232,0.7) !important; margin: 0 0 6px; line-height: 1.5; }
+  .cta-keyword { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 800; color: #C9A84C !important; display: block; margin: 6px 0; }
+  .footer-pdf { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(26,26,46,0.15); font-size: 11px; color: rgba(26,26,46,0.35) !important; text-align: center; }
+  @media print { .page { padding: 24px 32px; } }
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="badge">Patrón predominante</div>
-  <p class="patron-name">${patron}</p>
+<div class="page">
+  <div class="top-bar"></div>
+  <div class="header">
+    <div class="logo-hex">
+      <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 9V19L14 25L3 19V9L14 3Z" stroke="#C9A84C" stroke-width="1.5"/><circle cx="14" cy="14" r="4" fill="#C9A84C" opacity="0.8"/></svg>
+    </div>
+    <div class="header-text">
+      <div class="badge">Patrón predominante</div>
+      <div class="patron-name">\${patron}</div>
+      <div class="handle">@camiloperezgarcia</div>
+    </div>
+  </div>
+  <div class="report-content">\${body}</div>
+  <div class="cta-box">
+    <p>Este es el trabajo que hacemos en el Módulo 1 del programa.</p>
+    <span class="cta-keyword">Escríbeme MENTORIA en un DM</span>
+    <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
+  </div>
+  <div class="footer-pdf">© Camilo Pérez García · Estructura que Expande · diagnostico-identidad.vercel.app</div>
 </div>
-<div class="report-content">${body}</div>
-<div class="cta-box">
-  <p>Este es el trabajo que hacemos en el Módulo 1 del programa.</p>
-  <strong>Escríbeme MENTORIA en un DM</strong>
-  <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
-</div>
-<div class="footer-pdf">© Camilo Pérez García · @camiloperezgarcia</div>
-<script>window.onload=function(){window.print();}<\/script>
+<script>
+  window.onload = function() {
+    setTimeout(function() { window.print(); }, 800);
+  };
+<\/script>
 </body>
 </html>`);
   win.document.close();
