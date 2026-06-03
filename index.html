@@ -152,6 +152,7 @@
       <strong>Escríbeme MENTORIA en un DM</strong>
       <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
     </div>
+    <button class="btn-ghost" id="btnPDF" onclick="downloadPDF()" style="border-color:var(--gold);color:var(--gold);font-weight:600">↓ Descargar mi reporte en PDF</button>
     <button class="btn-ghost" onclick="window.open('https://instagram.com/camiloperezgarcia','_blank')">Ir a Instagram → @camiloperezgarcia</button>
     <div class="footer">© Camilo Pérez García · <a href="https://instagram.com/camiloperezgarcia" target="_blank">@camiloperezgarcia</a></div>
   </div>
@@ -335,6 +336,53 @@ async function generateReport(){
     btn.disabled=false;btn.textContent='Ver mi reporte';
     emailErr.textContent='Hubo un error. Intenta de nuevo.';emailErr.style.display='block';
   }
+}
+
+function downloadPDF() {
+  const patron = document.getElementById('reportName').textContent;
+  const body = document.getElementById('reportBody').innerHTML;
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reporte de Identidad — ${patron}</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'DM Sans', sans-serif; background: #1A1A2E; color: #F5F0E8; margin: 0; padding: 2rem; }
+  .header { border-bottom: 2px solid #C9A84C; padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  .badge { display: inline-block; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4); color: #C9A84C; font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 10px; }
+  .patron-name { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin: 0; }
+  .report-content { font-size: 14px; line-height: 1.8; }
+  .report-content h2 { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin: 1.5rem 0 0.5rem; }
+  .report-content h3 { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: #C9A84C; margin: 1.2rem 0 0.3rem; }
+  .report-content strong { color: #fff; font-weight: 600; }
+  .report-content hr { border: none; border-top: 1px solid rgba(201,168,76,0.2); margin: 1rem 0; }
+  .cta-box { margin-top: 2rem; padding: 20px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.35); border-radius: 10px; text-align: center; }
+  .cta-box p { font-size: 13px; color: rgba(245,240,232,0.7); margin-bottom: 6px; }
+  .cta-box strong { font-family: 'Sora', sans-serif; font-size: 16px; color: #C9A84C; display: block; }
+  .footer-pdf { margin-top: 2rem; font-size: 11px; color: rgba(245,240,232,0.3); text-align: center; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">Patrón predominante</div>
+  <p class="patron-name">${patron}</p>
+</div>
+<div class="report-content">${body}</div>
+<div class="cta-box">
+  <p>Este es el trabajo que hacemos en el Módulo 1 del programa.</p>
+  <strong>Escríbeme MENTORIA en un DM</strong>
+  <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
+</div>
+<div class="footer-pdf">© Camilo Pérez García · @camiloperezgarcia</div>
+<script>window.onload=function(){window.print();}<\/script>
+</body>
+</html>`);
+  win.document.close();
 }
 </script>
 </body>
