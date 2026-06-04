@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/o8TrXzqypiw/maxresdefault.jpg`;
 
   try {
-    // 1. Register subscriber in MailerLite group (no automation email — handled by transactional below)
+    // 1. Register subscriber in MailerLite group
     await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       })
     });
 
-    // 2. Send transactional email with full report
+    // 2. Send transactional email via Resend
     if (report) {
       const reportHtml = report
         .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -66,13 +66,9 @@ export default async function handler(req, res) {
 
   <!-- 2. VIDEO THUMBNAIL -->
   <tr><td style="background:#FFFFFF;padding:0 40px 36px;text-align:center">
-    <a href="${VIDEO_URL}" style="display:block;text-decoration:none;position:relative">
+    <a href="${VIDEO_URL}" style="display:block;text-decoration:none">
       <div style="position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(201,168,76,0.4)">
         <img src="${VIDEO_THUMBNAIL}" alt="Ver video — Las identidades del emprendedor" width="520" style="width:100%;max-width:520px;display:block;border-radius:8px">
-        <!-- Play button overlay -->
-        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(201,168,76,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center">
-          <div style="width:0;height:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:22px solid #1A1A2E;margin-left:4px"></div>
-        </div>
       </div>
       <p style="margin:12px 0 0;font-size:13px;color:#C9A84C;font-weight:700;letter-spacing:0.04em">▶ Ver video — Las identidades del emprendedor</p>
     </a>
@@ -118,16 +114,15 @@ export default async function handler(req, res) {
 </body>
 </html>`;
 
-      await fetch('https://connect.mailerlite.com/api/emails', {
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
         },
         body: JSON.stringify({
-          from: 'camilo@miimperiodigital.com',
-          from_name: 'Camilo Pérez García',
-          to: [{ email: email, name: name }],
+          from: 'Camilo Pérez García <camilo@miimperiodigital.com>',
+          to: [email],
           subject: `${name}, tu diagnóstico de identidad está aquí`,
           html: emailHtml
         })
