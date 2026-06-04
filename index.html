@@ -77,6 +77,8 @@
   .footer a{color:var(--gold);text-decoration:none;opacity:0.7}
   .error-msg{font-size:12px;color:#FF6B6B;margin-top:8px;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
+  /* PERFIL SCREEN */
+  .perfil-intro{font-size:14px;color:var(--cream-dim);line-height:1.6;margin-bottom:1.5rem;padding:14px 16px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:var(--radius-sm)}
   @media(max-width:480px){.card{padding:1.75rem 1.25rem}.info-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -88,7 +90,7 @@
 
   <div class="progress-wrap" id="progressWrap" style="display:none">
     <div class="progress-label">
-      <span class="progress-text" id="progressText">Pregunta 1 de 12</span>
+      <span class="progress-text" id="progressText">Pregunta 1 de 13</span>
       <span class="progress-text" id="progressPct">8%</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
@@ -102,7 +104,7 @@
     <h1>¿Desde dónde estás <em>emprendiendo</em>?</h1>
     <p class="subtitle">Descubre tu patrón de identidad y lo que le está costando a tu negocio — en menos de 8 minutos.</p>
     <div class="info-grid">
-      <div class="info-item"><span class="info-icon">🎯</span><div class="info-text"><strong>12 preguntas</strong>diseñadas para identificar tu patrón real</div></div>
+      <div class="info-item"><span class="info-icon">🎯</span><div class="info-text"><strong>13 preguntas</strong>diseñadas para identificar tu patrón real</div></div>
       <div class="info-item"><span class="info-icon">⚡</span><div class="info-text"><strong>Menos de 8 min</strong>responde con honestidad</div></div>
       <div class="info-item"><span class="info-icon">🔍</span><div class="info-text"><strong>Reporte personalizado</strong>generado para tu perfil</div></div>
       <div class="info-item"><span class="info-icon">🛡️</span><div class="info-text"><strong>Sin respuestas correctas</strong>solo respuestas honestas</div></div>
@@ -111,9 +113,35 @@
     <div class="footer">Por <a href="https://instagram.com/camiloperezgarcia" target="_blank">@camiloperezgarcia</a></div>
   </div>
 
+  <!-- PERFIL (Pregunta 0) -->
+  <div class="screen" id="screen-perfil">
+    <div class="q-number">Pregunta 1 de 13</div>
+    <div class="q-text">¿Cuál describe mejor tu situación actual en el mundo digital?</div>
+    <p class="perfil-intro">Esta respuesta nos ayuda a personalizar tu primer paso concreto al final del diagnóstico.</p>
+    <div class="options-list" id="perfilOptions">
+      <button class="option-btn" onclick="selectPerfil('mentor', this)">
+        <span class="option-letter">A</span>
+        <span>Quiero crear una mentoría o infoproducto con mi conocimiento</span>
+      </button>
+      <button class="option-btn" onclick="selectPerfil('prestador', this)">
+        <span class="option-letter">B</span>
+        <span>Presto servicios digitales (agencia, diseño, copy, tráfico, u otros)</span>
+      </button>
+      <button class="option-btn" onclick="selectPerfil('creador', this)">
+        <span class="option-letter">C</span>
+        <span>Quiero construir audiencia como creador de contenido</span>
+      </button>
+      <button class="option-btn" onclick="selectPerfil('explorando', this)">
+        <span class="option-letter">D</span>
+        <span>Todavía no tengo claro mi camino digital</span>
+      </button>
+    </div>
+    <button class="btn-primary" id="btnPerfil" onclick="continuarDesdePerfil()" disabled>Siguiente <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+
   <!-- QUESTION -->
   <div class="screen" id="screen-question">
-    <div class="q-number" id="qNumber">Pregunta 1 de 12</div>
+    <div class="q-number" id="qNumber">Pregunta 2 de 13</div>
     <div class="q-text" id="qText"></div>
     <div id="qOptions"></div>
     <button class="btn-primary" id="btnNext" onclick="nextQuestion()" disabled>Siguiente <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -148,8 +176,8 @@
     </div>
     <div class="report-body" id="reportBody"></div>
     <div class="report-cta">
-      <p>Este es el trabajo que hacemos en el Módulo 1 del programa.</p>
-      <strong>Escríbeme MENTORIA en un DM</strong>
+      <p>¿Quieres ir más profundo? El trabajo de resignificar tu patrón de identidad es exactamente lo que hacemos en mi Mentoría para Emprendedores Digitales.</p>
+      <strong>Escríbeme MENTORIA en un DM en Instagram</strong>
       <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
     </div>
     <button class="btn-ghost" id="btnPDF" onclick="downloadPDF()" style="border-color:var(--gold);color:var(--gold);font-weight:600">↓ Descargar mi reporte en PDF</button>
@@ -165,6 +193,14 @@ const patternNames = {
   demostrador:'El Demostrador',fugitivo:'El Fugitivo',urgente:'El Urgente',
   buscador:'El Buscador de Reconocimiento',perfeccionista:'El Perfeccionista Paralizado',
   seguidor:'El Seguidor de Tendencias',salvador:'El Salvador',impostor:'El Impostor Silencioso'
+};
+
+// Primer paso personalizado por perfil
+const primerPasoPorPerfil = {
+  mentor: 'Toma tres resultados concretos de personas que hayas acompañado o asesorado. Escribe en qué cambió específicamente su situación. Comparte uno —solo uno— en tu canal principal, con tu nombre visible. No perfeccionista. Solo honesto. Esto no es promoción, es documentación de lo que ya está pasando. Hazlo antes de viernes.',
+  prestador: 'Escribe en una sola frase qué problema específico resuelves y para quién. No "hago diseño" — sino "ayudo a coaches a tener una identidad visual que les genera confianza antes de que abran la boca". Comparte esa frase en tu canal principal esta semana. Así de simple.',
+  creador: 'Graba un video o publica un post contando por qué empezaste a crear contenido — la razón real, no la versión editada. Sin producción perfecta. La autenticidad hace más que la estética en este momento. Publícalo antes de viernes.',
+  explorando: 'Escribe en papel tres cosas que sabes hacer mejor que la mayoría de personas en tu entorno. No lo que crees que "debería" monetizarse — lo que genuinamente dominas. Ese es tu punto de partida. Esta semana, solo observa cuál de las tres te genera más energía cuando la practicas.'
 };
 
 const questions = [
@@ -223,8 +259,9 @@ const questions = [
   ]}
 ];
 
-let currentQ=0,selectedAnswer=null;
+let currentQ=0,selectedAnswer=null,perfilSeleccionado=null;
 let scores={demostrador:0,fugitivo:0,urgente:0,buscador:0,perfeccionista:0,seguidor:0,salvador:0,impostor:0};
+const TOTAL_PREGUNTAS = 13; // 1 de perfil + 12 de identidad
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -234,12 +271,34 @@ function showScreen(id){
 
 function startQuiz(){
   document.getElementById('progressWrap').style.display='block';
-  showScreen('question');renderQuestion(0);
+  updateProgressPerfil();
+  showScreen('perfil');
+}
+
+function updateProgressPerfil(){
+  const pct=Math.round((1/TOTAL_PREGUNTAS)*100);
+  document.getElementById('progressText').textContent='Pregunta 1 de '+TOTAL_PREGUNTAS;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+function selectPerfil(perfil, btn){
+  perfilSeleccionado = perfil;
+  document.querySelectorAll('#perfilOptions .option-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('btnPerfil').disabled=false;
+}
+
+function continuarDesdePerfil(){
+  if(!perfilSeleccionado)return;
+  showScreen('question');
+  renderQuestion(0);
 }
 
 function updateProgress(idx){
-  const pct=Math.round(((idx+1)/questions.length)*100);
-  document.getElementById('progressText').textContent=`Pregunta ${idx+1} de ${questions.length}`;
+  const preguntaActual = idx + 2; // +2 porque la pregunta de perfil es la 1
+  const pct=Math.round((preguntaActual/TOTAL_PREGUNTAS)*100);
+  document.getElementById('progressText').textContent='Pregunta '+preguntaActual+' de '+TOTAL_PREGUNTAS;
   document.getElementById('progressPct').textContent=pct+'%';
   document.getElementById('progressFill').style.width=pct+'%';
 }
@@ -247,7 +306,8 @@ function updateProgress(idx){
 function renderQuestion(idx){
   const q=questions[idx];currentQ=idx;selectedAnswer=null;
   document.getElementById('btnNext').disabled=true;
-  document.getElementById('qNumber').textContent=`Pregunta ${idx+1} de ${questions.length}`;
+  const preguntaActual = idx + 2;
+  document.getElementById('qNumber').textContent='Pregunta '+preguntaActual+' de '+TOTAL_PREGUNTAS;
   document.getElementById('qText').textContent=q.text;
   updateProgress(idx);
   const container=document.getElementById('qOptions');container.innerHTML='';
@@ -307,15 +367,14 @@ async function generateReport(){
   const btn=document.getElementById('btnReport');
   btn.disabled=true;btn.textContent='Generando...';
   const{primary,secondary}=getTopPatterns();
+  const primerPaso = primerPasoPorPerfil[perfilSeleccionado] || primerPasoPorPerfil['explorando'];
   showScreen('loading');
   try{
-    // Call secure API endpoint — keys are stored in Vercel env vars
     const reportRes=await fetch('/api/report',{signal:AbortSignal.timeout(25000),method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,primary,secondary})});
+        body:JSON.stringify({name,primary,secondary,perfil:perfilSeleccionado,primerPaso})});
     const{report}=await reportRes.json();
-    // Send subscribe with full report text for transactional email
     fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,email,patron:patternNames[primary],report:report||''})});
+        body:JSON.stringify({name,email,patron:patternNames[primary],patronSecundario:secondary?patternNames[secondary]:null,perfil:perfilSeleccionado,report:report||''})});
     document.getElementById('reportBadge').textContent='Patrón predominante';
     document.getElementById('reportName').textContent=patternNames[primary];
     const raw=report||'No pudimos generar el reporte. Contáctanos directamente.';
@@ -325,6 +384,7 @@ async function generateReport(){
       .replace(/^## (.+)$/gm,'<h3 style="font-family:\'Sora\',sans-serif;font-size:1rem;font-weight:700;color:#C9A84C;margin:1rem 0 0.3rem">$1</h3>')
       .replace(/^### (.+)$/gm,'<h4 style="font-family:\'Sora\',sans-serif;font-size:.95rem;font-weight:600;color:#fff;margin:.8rem 0 .2rem">$1</h4>')
       .replace(/\*\*(.+?)\*\*/g,'<strong style="color:#fff;font-weight:600">$1</strong>')
+      .replace(/\*(.+?)\*/g,'<strong style="color:#fff;font-weight:600">$1</strong>')
       .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid rgba(201,168,76,0.2);margin:1rem 0">')
       .replace(/\n\n/g,'</p><p style="margin:0.6rem 0">')
       .replace(/\n/g,'<br>');
@@ -349,8 +409,8 @@ function downloadPDF() {
   html += '<div class="header"><div class="logo-hex"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 9V19L14 25L3 19V9L14 3Z" stroke="#C9A84C" stroke-width="1.5"/><circle cx="14" cy="14" r="4" fill="#C9A84C" opacity="0.8"/></svg></div>';
   html += '<div class="header-text"><div class="badge">Patrón predominante</div><div class="patron-name">' + patron + '</div><div class="handle">@camiloperezgarcia</div></div></div>';
   html += '<div class="report-content">' + body + '</div>';
-  html += '<div class="cta-box"><p>Este es el trabajo que hacemos en el Módulo 1 del programa.</p><span class="cta-keyword">Escríbeme MENTORIA en un DM</span><p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p></div>';
-  html += '<div class="footer-pdf">© Camilo Pérez García · Estructura que Expande · diagnostico-identidad.vercel.app</div>';
+  html += '<div class="cta-box"><p>¿Quieres ir más profundo? El trabajo de resignificar tu patrón de identidad es exactamente lo que hacemos en mi Mentoría para Emprendedores Digitales.</p><span class="cta-keyword">Escríbeme MENTORIA en un DM</span><p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p></div>';
+  html += '<div class="footer-pdf">© Camilo Pérez García · @camiloperezgarcia</div>';
   html += '</div><script>window.onload=function(){setTimeout(function(){window.print();},800);}<\/script></body></html>';
   win.document.write(html);
   win.document.close();
