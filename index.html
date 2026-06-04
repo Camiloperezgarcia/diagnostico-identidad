@@ -40,7 +40,7 @@
   .info-text strong{color:var(--cream);font-weight:500;display:block}
   .q-number{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
   .q-number::after{content:'';flex:1;height:1px;background:var(--gold-border)}
-  .q-text{font-family:'Sora',sans-serif;font-size:clamp(1rem,2.5vw,1.2rem);font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1.75rem}
+  .q-text{font-family:'Sora',sans-serif;font-size:clamp(1.1rem,2.5vw,1.35rem);font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1.75rem}
   .scale-label{font-size:16px;font-weight:500;color:var(--cream);background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:1.5rem;font-style:italic;line-height:1.6;letter-spacing:0.01em}
   .scale-options{display:flex;gap:10px;justify-content:space-between;margin-bottom:1rem}
   .scale-btn{flex:1;aspect-ratio:1;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);color:var(--cream-dim);font-family:'Sora',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;justify-content:center}
@@ -48,7 +48,7 @@
   .scale-btn.selected{border-color:var(--gold);background:var(--gold-dim);color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.1)}
   .scale-ends{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.3)}
   .options-list{display:flex;flex-direction:column;gap:10px}
-  .option-btn{width:100%;text-align:left;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:14px 16px;color:var(--cream-dim);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:flex-start;gap:12px}
+  .option-btn{width:100%;text-align:left;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:14px 16px;color:var(--cream-dim);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.5;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:flex-start;gap:12px}
   .option-btn:hover{border-color:var(--gold-border);color:var(--cream);background:rgba(201,168,76,0.06)}
   .option-btn.selected{border-color:var(--gold);color:var(--white);background:var(--gold-dim);box-shadow:0 0 0 3px rgba(201,168,76,0.08)}
   .option-letter{width:24px;height:24px;border-radius:6px;flex-shrink:0;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--cream-dim);transition:all 0.2s}
@@ -144,7 +144,10 @@
     <div class="q-number" id="qNumber">Pregunta 2 de 13</div>
     <div class="q-text" id="qText"></div>
     <div id="qOptions"></div>
-    <button class="btn-primary" id="btnNext" onclick="nextQuestion()" disabled>Siguiente <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div style="display:flex;gap:10px;margin-top:1.5rem">
+      <button id="btnBack" onclick="prevQuestion()" style="background:transparent;border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:rgba(245,240,232,0.4);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;padding:15px 18px;transition:all 0.2s;flex-shrink:0" onmouseover="this.style.borderColor='rgba(201,168,76,0.4)';this.style.color='rgba(245,240,232,0.8)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(245,240,232,0.4)'">← Volver</button>
+      <button class="btn-primary" id="btnNext" onclick="nextQuestion()" disabled style="margin-top:0;flex:1">Siguiente <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 
   <!-- EMAIL -->
@@ -261,7 +264,8 @@ const questions = [
 
 let currentQ=0,selectedAnswer=null,perfilSeleccionado=null;
 let scores={demostrador:0,fugitivo:0,urgente:0,buscador:0,perfeccionista:0,seguidor:0,salvador:0,impostor:0};
-const TOTAL_PREGUNTAS = 13; // 1 de perfil + 12 de identidad
+let answersHistory=[];
+const TOTAL_PREGUNTAS = 13;
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -345,9 +349,31 @@ function selectScale(val,scoreMap){
 
 function nextQuestion(){
   if(!selectedAnswer)return;
+  answersHistory[currentQ]=selectedAnswer;
   Object.entries(selectedAnswer).forEach(([p,pts])=>{scores[p]=(scores[p]||0)+pts});
   if(currentQ<questions.length-1){renderQuestion(currentQ+1)}
   else{document.getElementById('progressWrap').style.display='none';showScreen('email')}
+}
+
+function prevQuestion(){
+  if(currentQ===0){
+    // Volver a la pantalla de perfil
+    showScreen('perfil');
+    updateProgressPerfil();
+    return;
+  }
+  // Restar los puntos de la respuesta actual si existe
+  if(answersHistory[currentQ]){
+    Object.entries(answersHistory[currentQ]).forEach(([p,pts])=>{scores[p]=(scores[p]||0)-pts});
+    delete answersHistory[currentQ];
+  }
+  renderQuestion(currentQ-1);
+  // Restaurar respuesta anterior si existe
+  const prev=answersHistory[currentQ];
+  if(prev){
+    selectedAnswer=prev;
+    document.getElementById('btnNext').disabled=false;
+  }
 }
 
 function getTopPatterns(){
