@@ -1,11 +1,10 @@
 export const maxDuration = 30;
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, primary, secondary } = req.body;
+  const { name, primary, secondary, perfil, primerPaso } = req.body;
 
   if (!name || !primary) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -25,6 +24,8 @@ export default async function handler(req, res) {
   const primName = patternNames[primary] || primary;
   const secName  = secondary ? patternNames[secondary] : null;
 
+  const primerPasoTexto = primerPaso || 'Dedica 30 minutos esta semana a escribir con honestidad desde qué motivación real estás construyendo tu negocio. No la versión pública — la versión verdadera. Ese ejercicio es el inicio del trabajo de resignificación.';
+
   const prompt = `Eres Camilo Pérez García, mentor de emprendedores en negocios digitales con sede en Cali, Colombia. Tu tono es cercano, honesto, directo pero humano — como hablarle a un estudiante de confianza. Sin corporativo, sin hype, sin promesas vacías.
 
 Genera un reporte personalizado de diagnóstico de identidad para ${name}.
@@ -32,23 +33,33 @@ Genera un reporte personalizado de diagnóstico de identidad para ${name}.
 PATRÓN PREDOMINANTE: ${primName}
 ${secName ? `PATRÓN SECUNDARIO: ${secName}` : 'Sin patrón secundario significativo'}
 
-El reporte debe tener entre 400 y 500 palabras. Estructura:
+El reporte debe tener entre 400 y 500 palabras. Usa exactamente esta estructura con estos títulos en markdown:
 
-1. Saludo breve y personalizado a ${name} (1-2 líneas)
-2. Nombre y descripción del patrón predominante — en qué consiste, desde dónde nace (2-3 párrafos)
-3. Cómo este patrón se manifiesta concretamente en el negocio — consecuencias reales y visibles (1-2 párrafos)
-4. ${secName ? `El patrón secundario ${secName} y cómo refuerza al predominante (1 párrafo)` : 'Una nota sobre que la mayoría tiene un patrón predominante claro como este (1 párrafo)'}
-5. Lo que ${name} necesita trabajar — el área de resignificación concreta (1 párrafo)
-6. El primer paso accionable — una sola acción concreta esta semana (1 párrafo)
+1. Saludo breve y personalizado a ${name} (1-2 líneas, sin título)
+
+2. ## ${primName}
+   Descripción del patrón — en qué consiste, desde dónde nace (2-3 párrafos)
+
+3. ## Cómo se ve en tu Emprendimiento
+   Cómo este patrón se manifiesta concretamente — consecuencias reales y visibles (1-2 párrafos)
+
+4. ${secName ? `## TU PATRÓN SECUNDARIO: ${secName}\nCómo refuerza al predominante (1 párrafo)` : '## Una nota importante\nUna nota sobre que la mayoría tiene un patrón predominante claro como este (1 párrafo)'}
+
+5. ## 🔍 Lo que necesitas resignificar
+   El área de trabajo concreto para este patrón (1 párrafo)
+
+6. ## 🗓️ Tu primer paso esta semana
+   Usa exactamente este texto para el primer paso (no lo cambies, no lo resumas):
+   ${primerPasoTexto}
 
 IMPORTANTE:
 - Habla en segunda persona (tú)
 - Tono: cercano, sin juzgar, desde la experiencia — como alguien que ya recorrió este camino
-- NO incluyas el CTA al programa — eso está en la pantalla
-- Usa los patrones: El Demostrador, El Fugitivo, El Urgente, El Buscador de Reconocimiento, El Perfeccionista Paralizado, El Seguidor de Tendencias, El Salvador, El Impostor Silencioso`;
+- NO incluyas el CTA al programa — eso está en otro lugar
+- Cuando uses palabras entre asteriscos simples como *palabra*, escríbelas entre doble asterisco **palabra** para que queden en negrilla
+- Al final del reporte, después del primer paso, agrega en una línea separada: "Con cariño, Camilo"`;
 
   try {
-    // Call Anthropic API — key stored securely in Vercel env vars
     const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
