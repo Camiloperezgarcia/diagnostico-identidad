@@ -54,10 +54,12 @@ El reporte debe tener entre 400 y 500 palabras. Usa exactamente esta estructura 
 
 IMPORTANTE:
 - Habla en segunda persona (tú)
-- Tono: cercano, sin juzgar, desde la experiencia — como alguien que ya recorrió este camino
-- NO incluyas el CTA al programa — eso está en otro lugar
+- Usa lenguaje neutro e inclusivo en todo momento: evita términos que asuman género. En lugar de "preparado/a" usa "en condiciones de", en lugar de "listo/a" usa "en el momento indicado", en lugar de "experto/a" usa "referente" o "profesional", en lugar de "cansado/a" usa "agotada la paciencia". Si necesitas adjetivar, usa formas neutras o reescribe la frase para evitar la marca de género.
+- Tono: cercano, sin juzgar, desde la experiencia, como alguien que ya recorrió este camino
+- NO incluyas el CTA al programa, eso está en otro lugar
 - Cuando uses palabras entre asteriscos simples como *palabra*, escríbelas entre doble asterisco **palabra** para que queden en negrilla
-- Al final del reporte, después del primer paso, agrega en una línea separada: "Con cariño, Camilo"`;
+- Evita usar guiones largos (—) en el texto; usa comas o punto y coma para separar ideas
+- Al final del reporte, después del primer paso, agrega dos saltos de línea y luego la firma: "Un Abrazo! Camilo Pérez"`;
 
   try {
     const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
