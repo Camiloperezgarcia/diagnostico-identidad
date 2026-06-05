@@ -112,7 +112,7 @@
     <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:1.5rem">
       <p style="margin:0 0 10px;font-size:14px;color:var(--cream-dim);line-height:1.75">La mayoría de emprendedores trabaja duro, aplica estrategias y aun así siente que algo no termina de funcionar. Hacen y hacen, y siguen sin construir algo estable. El problema casi nunca es la táctica. Es la identidad desde la que están construyendo.</p>
       <p style="margin:0 0 10px;font-size:14px;color:var(--cream-dim);line-height:1.75">En este diagnóstico vas a descubrir cuál de las <strong style="color:var(--cream)">8 Identidades del Emprendedor</strong> te describe y qué consecuencias concretas está teniendo en tu negocio hoy.</p>
-      <p style="margin:0;font-size:14px;color:var(--cream-dim);line-height:1.75;font-style:italic">Responde con honestidad. No hay respuestas correctas.</p>
+      <p style="margin:0;font-size:14px;color:var(--cream-dim);line-height:1.75;font-style:italic">Responde con honestidad. No hay respuestas buenas ni malas.</p>
     </div>
     <!-- Info grid -->
     <div class="info-grid" style="margin-bottom:1.5rem">
@@ -128,24 +128,24 @@
   <!-- PERFIL (Pregunta 0) -->
   <div class="screen" id="screen-perfil">
     <div class="q-number">Pregunta 1 de 13</div>
-    <div class="q-text">¿Cuál describe mejor tu situación actual en el mundo digital?</div>
+    <div class="q-text">¿Cuál de estos perfiles describe mejor tu situación actual en el mundo digital?</div>
     <p class="perfil-intro">Esta respuesta nos ayuda a personalizar tu primer paso concreto al final del diagnóstico.</p>
     <div class="options-list" id="perfilOptions">
       <button class="option-btn" onclick="selectPerfil('mentor', this)">
         <span class="option-letter">A</span>
-        <span>Quiero crear una mentoría o infoproducto con mi conocimiento</span>
+        <span>Soy Mentor/a y creo infoproductos con mis conocimientos y talentos</span>
       </button>
       <button class="option-btn" onclick="selectPerfil('prestador', this)">
         <span class="option-letter">B</span>
-        <span>Presto servicios digitales (agencia, diseño, copy, tráfico, u otros)</span>
+        <span>Presto servicios al ecosistema digital como Agencia, Trafficker, Copywriter, Diseño Gráfico, entre otros</span>
       </button>
       <button class="option-btn" onclick="selectPerfil('creador', this)">
         <span class="option-letter">C</span>
-        <span>Quiero construir audiencia como creador de contenido</span>
+        <span>Soy Creador/a de Contenido, UGC e Influencer</span>
       </button>
       <button class="option-btn" onclick="selectPerfil('explorando', this)">
         <span class="option-letter">D</span>
-        <span>Todavía no tengo claro mi camino digital</span>
+        <span>Todavía no tengo claro mi camino en el mundo digital</span>
       </button>
     </div>
     <button class="btn-primary" id="btnPerfil" onclick="continuarDesdePerfil()" disabled>Siguiente <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -166,7 +166,7 @@
   <div class="screen" id="screen-email">
     <div class="logo-mark"><svg viewBox="0 0 28 28" fill="none"><path d="M4 8l10 8 10-8M4 8h20v14H4V8z" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="capture-title">Tu reporte está listo ✦</div>
-    <p class="capture-sub">Ingresa tu nombre y email para ver tu patrón de identidad y el análisis personalizado de lo que le está costando a tu negocio.</p>
+    <p class="capture-sub">Ingresa tu nombre y correo para ver tu patrón de identidad y el análisis personalizado de lo que le está costando a tu negocio.</p>
     <div class="field"><label>Tu nombre</label><input type="text" id="inputName" placeholder="¿Cómo te llamas?" autocomplete="given-name"></div>
     <div class="field"><label>Tu email</label><input type="email" id="inputEmail" placeholder="tu@email.com" autocomplete="email"></div>
     <p class="error-msg" id="emailError">Por favor ingresa un nombre y email válido.</p>
@@ -220,57 +220,57 @@ const primerPasoPorPerfil = {
 
 const questions = [
   {id:1,type:'multiple',text:'¿Cuál fue la razón más honesta por la que decidiste emprender?',options:[
-    {letter:'A',text:'Estaba cansado de depender de un empleo y quería salir de ese sistema',scores:{fugitivo:3}},
+    {letter:'A',text:'Estaba cansada/o de depender de un empleo y quería salir de ese sistema',scores:{fugitivo:3}},
     {letter:'B',text:'Necesitaba generar más ingresos y el empleo ya no era suficiente',scores:{urgente:3}},
     {letter:'C',text:'Quería demostrarle a alguien (familia, pareja, amigos) que podía hacerlo',scores:{demostrador:3}},
     {letter:'D',text:'Vi que otras personas lo estaban haciendo y sentí que yo también podía',scores:{seguidor:3}}
   ]},
   {id:2,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Antes de lanzar algo nuevo, necesito que esté completamente listo."',scores:{1:{perfeccionista:0},2:{perfeccionista:1},3:{perfeccionista:2},4:{perfeccionista:3},5:{perfeccionista:4}}},
-  {id:3,type:'multiple',text:'Cuando publicas contenido o compartes tu trabajo, ¿qué es lo que más esperas que pase?',options:[
+  {id:3,type:'multiple',text:'Cuando publicas contenido en redes sociales o compartes tu trabajo, ¿qué es lo que más esperas que pase?',options:[
     {letter:'A',text:'Que la gente lo vea, lo comparta y te reconozca como referente en tu área',scores:{buscador:3}},
     {letter:'B',text:'Que alguien que lo necesita lo encuentre y le ayude de verdad',scores:{salvador:3}},
     {letter:'C',text:'Que las personas que dudaban de ti lo vean y entiendan que ibas en serio',scores:{demostrador:3}},
-    {letter:'D',text:'Que no recibas críticas — si sale bien, alivias la presión de que te "descubran"',scores:{impostor:3}}
+    {letter:'D',text:'Que no recibas críticas; si sale bien, alivias la presión de que te "descubran"',scores:{impostor:3}}
   ]},
   {id:4,type:'multiple',text:'¿Cómo tomas la mayoría de las decisiones importantes de tu negocio?',options:[
-    {letter:'A',text:'Según lo que más urgencia me genera en ese momento — lo que necesita atención ya',scores:{urgente:3}},
+    {letter:'A',text:'Según lo que más urgencia me genera en ese momento, lo que necesita atención ya',scores:{urgente:3}},
     {letter:'B',text:'Según lo que está funcionando para otras personas en mi industria ahora mismo',scores:{seguidor:3}},
-    {letter:'C',text:'Después de haber analizado bien todas las opciones — no me gusta decidir sin suficiente información',scores:{perfeccionista:2}},
-    {letter:'D',text:'Desde la intuición — si siento que algo me aleja de lo que no quiero, lo evito',scores:{fugitivo:2}}
+    {letter:'C',text:'Después de haber analizado bien todas las opciones, porque no me gusta decidir sin suficiente información',scores:{perfeccionista:2}},
+    {letter:'D',text:'Desde la intuición; si siento que algo me aleja de lo que no quiero, lo evito',scores:{fugitivo:2}}
   ]},
-  {id:5,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Aunque tengo conocimiento y experiencia, una parte de mí siente que no estoy suficientemente preparado para cobrar lo que cobro o para posicionarme como experto."',scores:{1:{impostor:0},2:{impostor:1},3:{impostor:2},4:{impostor:3},5:{impostor:4}}},
+  {id:5,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Aunque tengo conocimiento y experiencia, una parte de mí siente que no estoy suficientemente preparada/o para cobrar lo que cobro o para posicionarme como referente en mi área."',scores:{1:{impostor:0},2:{impostor:1},3:{impostor:2},4:{impostor:3},5:{impostor:4}}},
   {id:6,type:'multiple',text:'Cuando piensas en tu negocio siendo exitoso, ¿cuál de estas imágenes te genera más satisfacción?',options:[
     {letter:'A',text:'Ver que las personas que acompañé transformaron su vida gracias a tu trabajo',scores:{salvador:3}},
-    {letter:'B',text:'Ser reconocido como un referente en tu industria — que la gente te busque por tu nombre',scores:{buscador:3}},
-    {letter:'C',text:'Tener estabilidad financiera real — saber que el negocio paga bien y de manera constante',scores:{urgente:2}},
+    {letter:'B',text:'Ser reconocida/o como referente en tu industria y que la gente te busque por tu nombre',scores:{buscador:3}},
+    {letter:'C',text:'Tener estabilidad financiera real, saber que el negocio paga bien y de manera constante',scores:{urgente:2}},
     {letter:'D',text:'Que alguien que antes dudó de ti vea los resultados y reconozca que tenías razón',scores:{demostrador:3}}
   ]},
-  {id:7,type:'multiple',text:'¿Con qué frecuencia has cambiado de dirección, modelo de negocio o enfoque desde que empezaste?',options:[
-    {letter:'A',text:'Varias veces — siempre hay algo nuevo que parece mejor o más rentable',scores:{seguidor:3}},
-    {letter:'B',text:'Pocas veces — pero cada cambio fue después de mucho análisis',scores:{perfeccionista:2}},
-    {letter:'C',text:'Casi nunca en dirección, pero todavía no encuentro la manera perfecta de mostrar lo que hago',scores:{impostor:2}},
+  {id:7,type:'multiple',text:'¿Con qué frecuencia has cambiado de mensaje, modelo de negocio o enfoque desde que empezaste tu negocio?',options:[
+    {letter:'A',text:'Varias veces, siempre hay algo nuevo que parece mejor o más rentable',scores:{seguidor:3}},
+    {letter:'B',text:'Pocas veces, pero cada cambio fue después de mucho análisis',scores:{perfeccionista:2}},
+    {letter:'C',text:'Casi nunca el mensaje, pero todavía no encuentro la manera perfecta de mostrar lo que hago',scores:{impostor:2}},
     {letter:'D',text:'Cada vez que algo no funciona como esperaba o cuando siento que el mercado cambió',scores:{fugitivo:2,urgente:1}}
   ]},
   {id:8,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Me cuesta cobrar lo que realmente vale mi trabajo porque siento que no debería poner el dinero por encima de ayudar a las personas."',scores:{1:{salvador:0},2:{salvador:1},3:{salvador:2},4:{salvador:3},5:{salvador:4}}},
   {id:9,type:'multiple',text:'Cuando alguien cuestiona tu trabajo o te da una crítica, ¿qué es lo primero que sientes?',options:[
-    {letter:'A',text:'Necesidad de demostrar que estaban equivocados — que sí sabes lo que haces',scores:{demostrador:3}},
+    {letter:'A',text:'Necesidad de demostrar que estaban equivocados y que sí sabes lo que haces',scores:{demostrador:3}},
     {letter:'B',text:'Preocupación por cómo eso afecta tu imagen o lo que los demás piensan de ti',scores:{buscador:3}},
-    {letter:'C',text:'Confirmación de la voz interna que ya te decía que no eras suficientemente bueno',scores:{impostor:3}},
+    {letter:'C',text:'Confirmación de la voz interna que ya te decía que no eras suficientemente buena/o',scores:{impostor:3}},
     {letter:'D',text:'Presión de cambiar algo rápido para que no afecte las ventas o los ingresos',scores:{urgente:2}}
   ]},
-  {id:10,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Emprendí más para escapar de algo que no quería (un empleo, una situación, una dependencia) que para construir algo concreto que tenía claro."',scores:{1:{fugitivo:0},2:{fugitivo:1},3:{fugitivo:2},4:{fugitivo:3},5:{fugitivo:4}}},
+  {id:10,type:'scale',text:'¿Qué tanto te identifica esta afirmación?',label:'"Emprendí más para escapar de algo que no quería (un empleo, una situación, una dependencia familiar) que para construir un negocio que siempre tuve claro."',scores:{1:{fugitivo:0},2:{fugitivo:1},3:{fugitivo:2},4:{fugitivo:3},5:{fugitivo:4}}},
   {id:11,type:'multiple',text:'¿Cuál de estas frases describe mejor cómo te sientes cuando tu negocio pasa por un momento difícil?',options:[
     {letter:'A',text:'"¿Para qué sigo si nadie parece valorar lo que hago?" — la motivación dependía de la validación',scores:{demostrador:2,buscador:2}},
     {letter:'B',text:'"Necesito cambiar de estrategia ya — esto no puede seguir así"',scores:{urgente:3}},
-    {letter:'C',text:'"Esto confirma que no estoy listo — debería haber esperado más"',scores:{perfeccionista:3,impostor:2}},
+    {letter:'C',text:'"Esto confirma que no estaba lista/o, debería haber esperado más"',scores:{perfeccionista:3,impostor:2}},
     {letter:'D',text:'"Me pregunto si este camino es el correcto o si debería probar otra cosa"',scores:{fugitivo:2,seguidor:2}}
   ]},
   {id:12,type:'multiple',text:'Si tu negocio funcionara exactamente como lo sueñas, ¿qué sería lo más importante que habrías logrado?',options:[
     {letter:'A',text:'Que las personas que antes no creían en mí vean el éxito que construí',scores:{demostrador:3}},
-    {letter:'B',text:'Ser reconocido como una de las referencias más importantes en mi industria',scores:{buscador:3}},
+    {letter:'B',text:'Ser reconocida/o como una de las referencias más importantes en mi industria',scores:{buscador:3}},
     {letter:'C',text:'Haber ayudado a tantas personas que tu trabajo habla por sí solo',scores:{salvador:3}},
     {letter:'D',text:'Tener un negocio estable que genere ingresos consistentes sin depender de factores externos',scores:{urgente:2}},
-    {letter:'E',text:'Haber construido exactamente lo que siempre quisiste — sin copiar el modelo de nadie',scores:{seguidor:-2}}
+    {letter:'E',text:'Haber construido exactamente lo que siempre quise, sin copiar el modelo de nadie',scores:{seguidor:-2}}
   ]}
 ];
 
