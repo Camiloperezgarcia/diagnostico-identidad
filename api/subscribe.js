@@ -14,8 +14,64 @@ export default async function handler(req, res) {
   const VIDEO_URL = process.env.VIDEO_URL || 'https://www.youtube.com/watch?v=o8TrXzqypiw&t=240s';
   const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/o8TrXzqypiw/maxresdefault.jpg`;
 
+  // Función para guardar en Google Sheets
+  async function saveToSheets(data) {
+    const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    const sheetId = process.env.GOOGLE_SHEET_ID;
+
+    if (!serviceAccountEmail || !privateKey || !sheetId) return;
+
+    // Generar JWT para autenticación
+    const now = Math.floor(Date.now() / 1000);
+    const header = { alg: 'RS256', typ: 'JWT' };
+    const payload = {
+      iss: serviceAccountEmail,
+      scope: 'https://www.googleapis.com/auth/spreadsheets',
+      aud: 'https://oauth2.googleapis.com/token',
+      exp: now + 3600,
+      iat: now
+    };
+
+    const base64url = (obj) => Buffer.from(JSON.stringify(obj)).toString('base64url');
+    const signingInput = `${base64url(header)}.${base64url(payload)}`;
+
+    // Importar crypto para firmar
+    const { createSign } = await import('crypto');
+    const sign = createSign('RSA-SHA256');
+    sign.update(signingInput);
+    const signature = sign.sign(privateKey, 'base64url');
+    const jwt = `${signingInput}.${signature}`;
+
+    // Obtener access token
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${jwt}`
+    });
+    const { access_token } = await tokenRes.json();
+
+    if (!access_token) return;
+
+    // Agregar fila a Google Sheets
+    const fecha = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
+    await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/A:F:append?valueInputOption=USER_ENTERED`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        values: [[fecha, data.name, data.email, data.perfil, data.patron, data.patronSecundario || '']]
+      })
+    });
+  }
+
   try {
-    // 1. Registrar en MailerLite con perfil y patrón secundario
+    // 1. Guardar en Google Sheets (sin bloquear el flujo)
+    saveToSheets({ name, email, perfil, patron, patronSecundario }).catch(err => console.error('Sheets error:', err));
+
+    // 2. Registrar en MailerLite con perfil y patrón secundario
     await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
