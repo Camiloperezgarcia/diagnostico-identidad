@@ -190,10 +190,36 @@
       </div>
     </div>
     <div class="report-body" id="reportBody"></div>
-    <div class="report-cta">
-      <p>¿Quieres ir más profundo? El trabajo de resignificar tu patrón de identidad es exactamente lo que hacemos en mi Mentoría para Emprendedores Digitales.</p>
-      <strong>Escríbeme MENTORIA en un DM en Instagram</strong>
-      <p style="margin-top:4px">y te cuento cómo seguir construyendo desde tu identidad real.</p>
+    <div class="report-cta" style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:14px;padding:28px 24px;text-align:center;margin-top:2rem">
+      <div style="font-size:2.8rem;margin-bottom:10px">🎉</div>
+      <p style="font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:800;color:#FFFFFF;margin:0 0 6px">¡Felicitaciones! Completaste el Paso 1</p>
+      <p style="font-size:13px;color:rgba(245,240,232,0.6);margin:0 0 20px;line-height:1.6">Tu diagnóstico está listo. Ahora falta un paso para tener tu reporte completo.</p>
+      <!-- Barra de progreso 50% -->
+      <div style="margin:0 0 20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:11px;font-weight:700;color:#C9A84C;letter-spacing:0.08em;text-transform:uppercase">Tu progreso</span>
+          <span style="font-size:11px;font-weight:700;color:#C9A84C">50%</span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden">
+          <div style="width:50%;height:100%;background:linear-gradient(90deg,#C9A84C,#E8C76C);border-radius:3px"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px;gap:8px">
+          <div style="flex:1;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);border-radius:8px;padding:10px 8px;text-align:center">
+            <div style="font-size:16px;margin-bottom:4px">✅</div>
+            <div style="font-size:11px;font-weight:600;color:#C9A84C">Paso 1</div>
+            <div style="font-size:10px;color:rgba(245,240,232,0.5);margin-top:2px">Diagnóstico completado</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 8px;text-align:center">
+            <div style="font-size:16px;margin-bottom:4px">✉️</div>
+            <div style="font-size:11px;font-weight:600;color:rgba(245,240,232,0.5)">Paso 2</div>
+            <div style="font-size:10px;color:rgba(245,240,232,0.3);margin-top:2px">Ver tu reporte en el correo</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(201,168,76,0.12);border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:center;gap:10px">
+        <span style="font-size:1.3rem">📩</span>
+        <span style="font-size:13px;font-weight:700;color:#C9A84C">Ve a tu correo y completa el Paso 2</span>
+      </div>
     </div>
     <button class="btn-ghost" id="btnPDF" onclick="downloadPDF()" style="border-color:var(--gold);color:var(--gold);font-weight:600">↓ Descargar mi reporte en PDF</button>
     <button class="btn-ghost" onclick="window.open('https://instagram.com/camiloperezgarcia','_blank')">Ir a Instagram → @camiloperezgarcia</button>
@@ -450,6 +476,9 @@ async function generateReport(){
       .replace(/^### (.+)$/gm,'<h4 style="font-family:\'Sora\',sans-serif;font-size:.95rem;font-weight:600;color:#fff;margin:.8rem 0 .2rem">$1</h4>')
       .replace(/\*\*(.+?)\*\*/g,'<strong style="color:#fff;font-weight:600">$1</strong>')
       .replace(/\*(.+?)\*/g,'<strong style="color:#fff;font-weight:600">$1</strong>')
+      .replace(/Un Abrazo! Camilo Pérez/g,'<br><br><span style="color:rgba(245,240,232,0.7);font-style:italic;line-height:2">Un Abrazo!<br><strong style="color:var(--cream);font-style:normal;font-size:15px">Camilo Pérez</strong><br><span style="font-size:12px;color:rgba(245,240,232,0.4)">Mentor de Emprendedores en Negocios Digitales</span></span>')
+      .replace(/ — /g,', ')
+      .replace(/ — /g,', ')
       .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid rgba(201,168,76,0.2);margin:1rem 0">')
       .replace(/\n\n/g,'</p><p style="margin:0.6rem 0">')
       .replace(/\n/g,'<br>');
