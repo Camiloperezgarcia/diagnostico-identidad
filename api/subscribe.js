@@ -55,7 +55,7 @@ export default async function handler(req, res) {
 
     // Agregar fila a Google Sheets
     const fecha = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
-    await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/A:F:append?valueInputOption=USER_ENTERED`, {
+    await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${access_token}`,
