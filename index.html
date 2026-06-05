@@ -326,26 +326,53 @@ function renderQuestion(idx){
   document.getElementById('qNumber').textContent='Pregunta '+preguntaActual+' de '+TOTAL_PREGUNTAS;
   document.getElementById('qText').textContent=q.text;
   updateProgress(idx);
-  const container=document.getElementById('qOptions');container.innerHTML='';
+  const container=document.getElementById('qOptions');
+  container.innerHTML='';
+  // Remover listeners anteriores clonando el nodo
+  const newContainer=container.cloneNode(false);
+  container.parentNode.replaceChild(newContainer,container);
+  const qOptions=document.getElementById('qOptions');
+
   if(q.type==='scale'){
-    const label=document.createElement('div');label.className='scale-label';label.textContent=q.label;container.appendChild(label);
-    const wrap=document.createElement('div');wrap.className='scale-options';
+    const label=document.createElement('div');
+    label.className='scale-label';
+    label.textContent=q.label;
+    qOptions.appendChild(label);
+    const wrap=document.createElement('div');
+    wrap.className='scale-options';
     [1,2,3,4,5].forEach(n=>{
-      const btn=document.createElement('button');btn.className='scale-btn';btn.textContent=n;
-      btn.onclick=()=>selectScale(n,q.scores);wrap.appendChild(btn);
+      const btn=document.createElement('button');
+      btn.className='scale-btn';
+      btn.textContent=n;
+      btn.type='button';
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('.scale-btn').forEach((b,i)=>b.classList.toggle('selected',i+1===n));
+        selectedAnswer=q.scores[n];
+        document.getElementById('btnNext').disabled=false;
+      });
+      wrap.appendChild(btn);
     });
-    container.appendChild(wrap);
-    const ends=document.createElement('div');ends.className='scale-ends';
+    qOptions.appendChild(wrap);
+    const ends=document.createElement('div');
+    ends.className='scale-ends';
     ends.innerHTML='<span>No me identifica</span><span>Me describe perfectamente</span>';
-    container.appendChild(ends);
+    qOptions.appendChild(ends);
   } else {
-    const list=document.createElement('div');list.className='options-list';
+    const list=document.createElement('div');
+    list.className='options-list';
     q.options.forEach((opt,i)=>{
-      const btn=document.createElement('button');btn.className='option-btn';
+      const btn=document.createElement('button');
+      btn.className='option-btn';
+      btn.type='button';
       btn.innerHTML=`<span class="option-letter">${opt.letter}</span><span>${opt.text}</span>`;
-      btn.onclick=()=>selectOption(i,opt.scores,q.options);list.appendChild(btn);
+      btn.addEventListener('click',function(){
+        list.querySelectorAll('.option-btn').forEach((b,j)=>b.classList.toggle('selected',j===i));
+        selectedAnswer=opt.scores;
+        document.getElementById('btnNext').disabled=false;
+      });
+      list.appendChild(btn);
     });
-    container.appendChild(list);
+    qOptions.appendChild(list);
   }
 }
 
