@@ -59,7 +59,12 @@ IMPORTANTE:
 - NO incluyas el CTA al programa, eso está en otro lugar
 - Cuando uses palabras entre asteriscos simples como *palabra*, escríbelas entre doble asterisco **palabra** para que queden en negrilla
 - Evita usar guiones largos (—) en el texto; usa comas o punto y coma para separar ideas
-- Al final del reporte, después del primer paso, agrega dos saltos de línea y luego la firma: "Un Abrazo! Camilo Pérez"`;
+- Al final del reporte, después del primer paso, agrega exactamente este bloque de firma con los saltos de línea:
+
+Un Abrazo!
+
+Camilo Pérez
+Mentor de Emprendedores en Negocios Digitales`;
 
   try {
     const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {

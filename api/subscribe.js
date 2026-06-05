@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         .replace(/\*\*(.+?)\*\*/g,'<strong style="color:#1A1A2E;font-weight:700">$1</strong>')
         .replace(/\*(.+?)\*/g,'<strong style="color:#1A1A2E;font-weight:700">$1</strong>')
         .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid rgba(201,168,76,0.3);margin:16px 0">')
-        .replace(/Con cariño, Camilo/g,'<p style="margin:24px 0 0;font-size:15px;color:#1A1A2E;font-style:italic;font-family:Georgia,serif">Con cariño,<br><strong style="font-style:normal;font-size:16px">Camilo</strong></p>')
+        .replace(/Un Abrazo!\n\nCamilo Pérez\nMentor de Emprendedores en Negocios Digitales/g,'<p style="margin:32px 0 0;font-size:15px;color:#1A1A2E;font-family:Georgia,serif;line-height:1.8">Un Abrazo!<br><br><strong style="font-size:16px">Camilo Pérez</strong><br><span style="font-size:13px;color:#888">Mentor de Emprendedores en Negocios Digitales</span></p>')
         .replace(/\n\n/g,'</p><p style="margin:0 0 12px;line-height:1.8;color:#2A2A3E;font-family:Georgia,serif">')
         .replace(/\n/g,'<br>');
 
