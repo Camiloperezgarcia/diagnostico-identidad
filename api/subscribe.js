@@ -53,6 +53,15 @@ export default async function handler(req, res) {
 
     if (!access_token) return;
 
+    // Mapear perfil al nombre visible
+    const perfilNombres = {
+      mentor: 'Mentor',
+      prestador: 'Prestador de Servicios',
+      creador: 'Infoproductor',
+      explorando: 'Sin Definir'
+    };
+    const perfilVisible = perfilNombres[data.perfil] || data.perfil || 'Sin Definir';
+
     // Agregar fila a Google Sheets
     const fecha = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
     await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, {
@@ -62,7 +71,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        values: [[fecha, data.name, data.email, data.perfil, data.patron, data.patronSecundario || '']]
+        values: [[fecha, data.name, data.email, perfilVisible, data.patron, data.patronSecundario || '']]
       })
     });
   }
