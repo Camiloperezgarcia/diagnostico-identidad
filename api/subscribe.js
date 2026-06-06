@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   const VIDEO_URL = process.env.VIDEO_URL || 'https://youtu.be/luuMsBECyL8';
-  const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/luuMsBECyL8/maxresdefault.jpg`;
+  const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/luuMsBECyL8/hqdefault.jpg`;
 
   // Función para guardar en Google Sheets
   async function saveToSheets(data) {
