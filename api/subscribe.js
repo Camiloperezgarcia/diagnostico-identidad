@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid email' });
   }
 
-  const VIDEO_URL = process.env.VIDEO_URL || 'https://youtu.be/luuMsBECyL8';
+  const VIDEO_URL = process.env.VIDEO_URL || 'https://identidad.miimperiodigital.com/video';
   const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/luuMsBECyL8/maxresdefault.jpg`;
 
   // Función para guardar en Google Sheets
