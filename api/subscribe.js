@@ -164,13 +164,6 @@ export default async function handler(req, res) {
     <p style="margin:0 0 20px;font-size:15px;color:rgba(245,240,232,0.85);line-height:1.7;font-family:Georgia,serif;font-style:italic">¿Qué te llevás de este diagnóstico? <strong style="color:#FFFFFF;font-style:normal">Responde este correo con lo primero que se te venga a la mente. Lo leo personalmente.</strong></p>
   </td></tr>
 
-  <!-- SÍGUEME -->
-  <tr><td style="background:#F5F0E8;padding:28px 40px;text-align:center">
-    <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#1A1A2E;letter-spacing:0.1em;text-transform:uppercase;font-family:Arial,sans-serif">Sígueme para más contenido</p>
-    <p style="margin:0 0 20px;font-size:14px;color:#2A2A3E;line-height:1.7;font-family:Georgia,serif">Cada semana comparto herramientas, reflexiones y estrategias para construir tu negocio desde quien realmente eres.</p>
-    <a href="https://www.instagram.com/camiloperezgarcia" style="display:inline-block;background:#1A1A2E;color:#C9A84C;font-size:14px;font-weight:700;text-decoration:none;padding:13px 28px;border-radius:8px;letter-spacing:0.03em;font-family:Arial,sans-serif">Seguir en Instagram → @camiloperezgarcia</a>
-  </td></tr>
-
   <!-- FOOTER -->
   <tr><td style="background:#1A1A2E;padding:20px 40px;border-radius:0 0 12px 12px;border-top:1px solid rgba(255,255,255,0.08)">
     <p style="margin:0;font-size:12px;color:rgba(245,240,232,0.35);text-align:center;font-family:Arial,sans-serif">© Camilo Pérez García · @camiloperezgarcia · camilo@miimperiodigital.com</p>
