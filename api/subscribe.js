@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   const VIDEO_URL = process.env.VIDEO_URL || 'https://youtu.be/luuMsBECyL8';
-  const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/luuMsBECyL8/hqdefault.jpg`;
+  const VIDEO_THUMBNAIL = `https://img.youtube.com/vi/luuMsBECyL8/maxresdefault.jpg`;
 
   // Función para guardar en Google Sheets
   async function saveToSheets(data) {
@@ -129,14 +129,14 @@ export default async function handler(req, res) {
     <p style="margin:0 0 16px;font-size:16px;color:#1A1A2E;line-height:1.7;font-family:Georgia,serif">Hola <strong>${name}</strong>,</p>
     <p style="margin:0 0 14px;font-size:15px;color:#2A2A3E;line-height:1.8;font-family:Georgia,serif">Completaste tu diagnóstico de identidad. Lo que acabas de descubrir no es un defecto — es el punto de partida más honesto que puedes tener como emprendedor.</p>
     <p style="margin:0 0 14px;font-size:15px;color:#2A2A3E;line-height:1.8;font-family:Georgia,serif">Antes de leer tu reporte, te pido que veas el video que está justo abajo. En él explico qué significa cada patrón de identidad, desde dónde nace y por qué reconocerlo cambia todo. Con ese contexto, tu reporte va a tener mucho más sentido.</p>
-    <p style="margin:0;font-size:15px;color:#2A2A3E;line-height:1.8;font-family:Georgia,serif"><strong style="color:#1A1A2E">Tómate 20 minutos para verlo antes de seguir.</strong> Vale la pena.</p>
+    <p style="margin:0;font-size:15px;color:#2A2A3E;line-height:1.8;font-family:Georgia,serif"><strong style="color:#1A1A2E">Tómate 8 minutos para verlo antes de seguir.</strong> Vale la pena.</p>
   </td></tr>
 
   <!-- VIDEO -->
   <tr><td style="background:#FFFFFF;padding:0 40px 36px;text-align:center">
     <a href="${VIDEO_URL}" style="display:block;text-decoration:none">
       <div style="border-radius:10px;overflow:hidden;border:2px solid rgba(201,168,76,0.4)">
-        <img src="${VIDEO_THUMBNAIL}" alt="Las Identidades del Emprendedor" width="520" style="width:100%;max-width:520px;display:block;border-radius:8px">
+        <div style="overflow:hidden;border-radius:8px;max-height:293px"><img src="${VIDEO_THUMBNAIL}" alt="Las Identidades del Emprendedor" width="520" style="width:100%;max-width:520px;display:block;margin-top:-10%;margin-bottom:-10%"></div>
       </div>
       <p style="margin:12px 0 0;font-size:13px;color:#C9A84C;font-weight:700;letter-spacing:0.04em;font-family:Arial,sans-serif">▶ Ver video — Las Identidades del Emprendedor</p>
     </a>
